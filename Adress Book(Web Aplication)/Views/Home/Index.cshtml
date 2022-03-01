@@ -1,0 +1,40 @@
+﻿@model UsersContact
+@{
+	Layout = null;
+}
+<div class="options">
+	<ul>
+		@*---------------------Search Input Block--------------------------*@
+		<li>
+			<form>
+				<input type="search" class="Search-Contact" placeholder="Search Contact" />
+			</form>
+		</li>
+
+		@*---------------------All Contacts Link Button--------------------------*@
+		<li>
+			<a href="#" class="all-Contacts">All Contacts List</a>
+		</li>
+
+		@*---------------------Create New Contact Link Button--------------------------*@
+		<li>
+			<a href="#" class="create-Contact">Create New Contact</a>
+		</li>
+
+		@*---------------------Edit Existing Contact Link Button--------------------------*@
+		<li>
+			<a href="#" class="edit-Contact">Edit Existing Contact</a>
+		</li>
+
+		@*---------------------Delete Existing Contact Link Button--------------------------*@
+ 		<li>
+			<a href="#" class="delete-Contact">Delete Contact</a>
+		</li>
+	</ul>
+</div>
+		@*---------------------Searched Or Changed Content Block--------------------------*@
+	<div class="content"></div>
+
+		@*---------------------Js Script--------------------------*@
+
+ <script src="~/js/app.js"></script>
