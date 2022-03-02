@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    class RepositoryRegistry
+  public  class DataAccessRegistry
     {
         //Adding Dependecy Injection For Interfaces
-        public static void RegisterRepositories(IServiceCollection services)
+        public static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IContacts, User_Contacts>();
         }

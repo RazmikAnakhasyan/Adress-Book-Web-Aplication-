@@ -1,3 +1,4 @@
+using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,7 +25,8 @@ namespace Adress_Book_Web_Aplication_
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            DataAccessRegistry.RegisterServices(services);
+            DataAccessRegistry.RegisterDbContext(services, Configuration.GetConnectionString("Default"));
             
         }
 

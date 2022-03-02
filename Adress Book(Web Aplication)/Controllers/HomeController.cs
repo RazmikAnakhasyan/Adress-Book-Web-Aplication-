@@ -8,15 +8,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataAccess;
 using Adress_Book_Web_Aplication_.Repositories.Ipmlementations;
+using Adress_Book_Web_Aplication_.Repositories.Interfaces;
 
 namespace Adress_Book_Web_Aplication_.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly User_Contacts Contacts;
-        public HomeController()
+        private readonly IContacts _Contacts;//Now This Interface Iplement User_Contact Class 
+
+        public HomeController(IContacts contacts)
         {
-            Contacts = new User_Contacts(new AdressBookContext());
+            _Contacts = contacts;
         }
 
         //Home Page
@@ -29,36 +31,42 @@ namespace Adress_Book_Web_Aplication_.Controllers
         [HttpGet]
         public IEnumerable<UsersContact> AllContacts()
         {
-            return Contacts.GetAll();
+            TempData["Message"] = "Success";
+            return _Contacts.GetAll();
         }
 
         [Route("Search")]
-        [HttpGet]
-        public UsersContact SearchContact(string FullName) {
-            return Contacts.GetContact(FullName);
+        [HttpPost]
+        public IActionResult SearchContact([FromBody] UsersContact Contact)
+        {
+            TempData["Message"] = "Success";
+            return _Contacts.GetContact(Contact.FullName)!=null ? View("./Index", _Contacts.GetContact(Contact.FullName)) : View("./Index", TempData["Message"] = "Error");
         }
 
         //Delete Contact By FullName
         [Route("Delete")]
         [HttpPost]
-        public UsersContact DeleteContact(string FullName)
+        public IActionResult DeleteContact(string FullName)
         {
-            return Contacts.DeleteContact(FullName);
+            TempData["Message"] = "Success";
+            return _Contacts.DeleteContact(FullName)!=null ? View("./Index", _Contacts.DeleteContact(FullName)) : View("./Index", TempData["Message"]="Error");
         }
 
         //Add New Contact 
         [Route("Add")]
         [HttpPost]
-        public UsersContact AddContact(UsersContact contact)
+        public IActionResult AddContact(UsersContact contact)
         {
-           return Contacts.AddContact(contact);
+            TempData["Message"] = "Success";
+            return _Contacts.AddContact(contact)!=null ? View("./Index",_Contacts.AddContact(contact)) : View("./Index", TempData["Message"]="Error");
         }
 
         //Update Existing Contact
         [Route("Update")]
         [HttpPost]
-        public UsersContact UpdateContact(UsersContact contact) {
-            return Contacts.ChangeContact(contact);
+        public IActionResult UpdateContact(UsersContact contact) {
+            TempData["Message"] = "Success";
+            return _Contacts.ChangeContact(contact) != null ? View("./Index", _Contacts.ChangeContact(contact)) : View("./Index", TempData["Message"]="Error");
         } 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Adress_Book_Web_Aplication_.Repositories.Interfaces
 {
-    interface IContacts
+   public interface IContacts
     {
         IEnumerable<UsersContact> GetAll();
 
@@ -16,6 +17,7 @@ namespace Adress_Book_Web_Aplication_.Repositories.Interfaces
         UsersContact ChangeContact(UsersContact UpdatedContact);
 
         UsersContact AddContact(UsersContact NewContact);
+
 
         
     }
