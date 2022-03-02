@@ -1,6 +1,26 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul {
+    background: #F7FAFF;
+}
+
+li {
+    font-weight: bold;
+    list-style-type: none;
+    text-decoration: solid;
+    width: 100%;
+    font-size: 12px;
+    padding-bottom: 10px;
+    color: rgb(240, 6, 6);
+    font-family: cursive;
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -9,6 +29,9 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
+    min-width:400px;
+    align-content:center;
+    text-decoration:none;
   color: #0366d6;
 }
 

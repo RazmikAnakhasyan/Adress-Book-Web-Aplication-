@@ -8,15 +8,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataAccess;
 using Adress_Book_Web_Aplication_.Repositories.Ipmlementations;
+using Adress_Book_Web_Aplication_.Repositories.Interfaces;
 
 namespace Adress_Book_Web_Aplication_.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly User_Contacts Contacts;
-        public HomeController()
+        private readonly IContacts _Contacts;//Now This Interface Iplement User_Contact Class 
+
+        public HomeController(IContacts contacts)
         {
-            Contacts = new User_Contacts(new AdressBookContext());
+            _Contacts = contacts;
         }
 
         //Home Page
@@ -29,13 +31,14 @@ namespace Adress_Book_Web_Aplication_.Controllers
         [HttpGet]
         public IEnumerable<UsersContact> AllContacts()
         {
-            return Contacts.GetAll();
+            return _Contacts.GetAll();
         }
 
         [Route("Search")]
-        [HttpGet]
-        public UsersContact SearchContact(string FullName) {
-            return Contacts.GetContact(FullName);
+        [HttpPost]
+        public UsersContact SearchContact([FromBody] UsersContact Contact)
+        {
+            return _Contacts.GetContact(Contact.FullName);
         }
 
         //Delete Contact By FullName
@@ -43,7 +46,7 @@ namespace Adress_Book_Web_Aplication_.Controllers
         [HttpPost]
         public UsersContact DeleteContact(string FullName)
         {
-            return Contacts.DeleteContact(FullName);
+            return _Contacts.DeleteContact(FullName);
         }
 
         //Add New Contact 
@@ -51,14 +54,14 @@ namespace Adress_Book_Web_Aplication_.Controllers
         [HttpPost]
         public UsersContact AddContact(UsersContact contact)
         {
-           return Contacts.AddContact(contact);
+           return _Contacts.AddContact(contact);
         }
 
         //Update Existing Contact
         [Route("Update")]
         [HttpPost]
         public UsersContact UpdateContact(UsersContact contact) {
-            return Contacts.ChangeContact(contact);
+            return _Contacts.ChangeContact(contact);
         } 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

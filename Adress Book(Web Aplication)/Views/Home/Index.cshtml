@@ -1,14 +1,19 @@
-﻿@model UsersContact
+﻿@*@model UsersContact
 @{
 	Layout = null;
-}
-<div class="options">
+}*@
+<html>
+	<head>
+	 
+ </head>
+ <body>
+	 <div class="options">
 	<ul>
 		@*---------------------Search Input Block--------------------------*@
 		<li>
-			<form>
-				<input type="search" class="Search-Contact" placeholder="Search Contact" />
-			</form>
+			<form class="search">
+                    <input  type="text"  placeholder="Search..." name ="FullName">
+                    </form>
 		</li>
 
 		@*---------------------All Contacts Link Button--------------------------*@
@@ -38,3 +43,6 @@
 		@*---------------------Js Script--------------------------*@
 
  <script src="~/js/app.js"></script>
+ </body>
+</html>
+

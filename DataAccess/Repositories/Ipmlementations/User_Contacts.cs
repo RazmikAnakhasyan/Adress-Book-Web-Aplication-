@@ -1,4 +1,5 @@
 ﻿using Adress_Book_Web_Aplication_.Repositories.Interfaces;
+using DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,12 @@ namespace Adress_Book_Web_Aplication_.Repositories.Ipmlementations
         //Method for change existing contact data
         public UsersContact ChangeContact(UsersContact UpdatedContact)
         {
-            var Contact = _Context.UsersContacts.FirstOrDefault(_ => _.PhoneNumber == UpdatedContact.PhoneNumber);
+            var Contact = _Context.UsersContacts.FirstOrDefault(_ => _.FullName == UpdatedContact.FullName);
             
             if (Contact !=null)//checking if we have entity with UpdatedContact.PhoneNumber
             {
                 Contact.FullName = UpdatedContact.FullName;
+                Contact.PhoneNumber = UpdatedContact.PhoneNumber;
                 Contact.EmailAdress = UpdatedContact.EmailAdress;
                 Contact.PhysicalAddres = UpdatedContact.PhysicalAddres;
                 _Context.SaveChanges();
@@ -60,7 +62,7 @@ namespace Adress_Book_Web_Aplication_.Repositories.Ipmlementations
         //Method that show accurate contact
         public UsersContact GetContact(string FullName)
         {
-            var currentContact = _Context.UsersContacts.FirstOrDefault(_ => _.FullName == FullName);
+            var currentContact = _Context.UsersContacts.FirstOrDefault(_ => _.FullName.StartsWith(FullName) || _.FullName.Contains(FullName));
             if (currentContact!=null)//checking if we have matching for this contact
             {
                 return currentContact;

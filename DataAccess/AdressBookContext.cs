@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
-namespace Adress_Book_Web_Aplication_
+namespace DataAccess
 {
     public partial class AdressBookContext : DbContext
     {
@@ -26,9 +26,9 @@ namespace Adress_Book_Web_Aplication_
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder()
-                                  .SetBasePath(Directory.GetCurrentDirectory())
-                                  .AddJsonFile("appsettings.json")
-                                  .Build();
+                                                  .SetBasePath(Directory.GetCurrentDirectory())
+                                                  .AddJsonFile("appsettings.json")
+                                                  .Build();
                 var connectionString = configuration.GetConnectionString("Default");
                 optionsBuilder.UseSqlServer(connectionString);
             }
@@ -38,25 +38,27 @@ namespace Adress_Book_Web_Aplication_
         {
             modelBuilder.Entity<UsersContact>(entity =>
             {
-                entity.HasKey(e => e.PhoneNumber);
+                entity.HasKey(e => e.ContactId)
+                    .HasName("PK_Users_Contacts_1");
 
                 entity.ToTable("Users_Contacts");
 
-                entity.Property(e => e.PhoneNumber)
-                    .HasMaxLength(20)
-                    .HasColumnName("Phone_Number");
+                entity.Property(e => e.ContactId).HasColumnName("Contact_Id");
 
                 entity.Property(e => e.EmailAdress)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("Email_Adress");
 
                 entity.Property(e => e.FullName)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("Full_Name");
 
+                entity.Property(e => e.PhoneNumber)
+                    .HasMaxLength(25)
+                    .HasColumnName("Phone_Number");
+
                 entity.Property(e => e.PhysicalAddres)
+                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("Physical_Addres");
             });
